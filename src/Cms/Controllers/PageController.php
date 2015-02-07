@@ -1,5 +1,7 @@
 <?php namespace Cms\Controllers;
 
-class PageController {
-	public $test = 'acx';
+class PageController extends \Illuminate\Routing\Controller {
+	public function index() {
+		return \View::make('cms::index');
+	}
 }
