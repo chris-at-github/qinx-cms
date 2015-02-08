@@ -1,1 +1,5 @@
-index.blade.php
+@include('header');
+
+
+
+@include('footer');
