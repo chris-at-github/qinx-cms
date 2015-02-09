@@ -1,7 +1,7 @@
 <?php namespace Cms\Controllers;
 
-class PageController extends \Illuminate\Routing\Controller {
+class PageController extends CmsController {
 	public function index() {
-		return \View::make('cms::index');
+		return \View::make('cms::page/index');
 	}
 }

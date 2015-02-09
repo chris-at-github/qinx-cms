@@ -2,7 +2,7 @@
 
 <div class="inner">
 	<div class="node node-container">
-		<a class="node-create">NEUE</a>
+		<a href="{{route('node.create')}}" class="node-create"></a>
 	</div>
 </div>
 

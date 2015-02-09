@@ -1,5 +1,5 @@
-@include('header');
+@include('cms:header');
 
 
 
-@include('footer');
+@include('cms:footer');
