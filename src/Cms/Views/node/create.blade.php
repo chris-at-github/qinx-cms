@@ -3,7 +3,12 @@
 @if(isset($node) === true)
 
 	{!! Form::model($node, ['route' => 'node.save']) !!}
-		@include('cms::partials.node.elements', ['node' => $node])
+		<div>
+			{!! Form::hidden('parent') !!}
+			{!! Form::hidden('nodeType') !!}
+		</div>
+
+		@include('cms::partials.node.form', ['node' => $node])
 	{!! Form::close() !!}
 
 @else

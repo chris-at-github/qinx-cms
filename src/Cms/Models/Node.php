@@ -10,6 +10,13 @@ class Node extends Cms {
 	protected $table = 'nodes';
 
 	/**
+	 * properties which can not fill over mass assignment
+	 *
+	 * @var array $guarded
+	 */
+	protected $guarded = array();
+
+	/**
 	 * element collection
 	 *
 	 * @var \Illuminate\Support\Collection $elements
@@ -53,5 +60,15 @@ class Node extends Cms {
 	*/
 	public function initializeElements($elements) {
 		return $elements;
+	}
+
+	/**
+	 * Setter for node_type so i can use the camelCase style
+	 *
+	 * @param string $nodeType
+	 * @return self
+	 */
+	public function setNodeTypeAttribute($nodeType) {
+		$this->attributes['node_type'] = $nodeType;
 	}
 }

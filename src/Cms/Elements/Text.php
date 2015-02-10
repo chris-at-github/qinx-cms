@@ -3,11 +3,11 @@
 class Text {
 
 	/**
-	 * type of this element
+	 * partial of this element
 	 *
-	 * @var string $type
+	 * @var string $partial
 	 */
-	protected $type = 'text';
+	protected $partial = 'cms::partials.element.text';
 
 	/**
 	 * name of this element
@@ -22,15 +22,6 @@ class Text {
 	 * @var string $label
 	 */
 	protected $label;
-
-	/**
-	* Gets the type of this element.
-	*
-	* @return string $type
-	*/
-	public function getType() {
-		return $this->type;
-	}
 
 	/**
 	* Gets the name of this element.
@@ -70,5 +61,14 @@ class Text {
 	public function setLabel($label) {
 		$this->label = $label;
 		return $this;
+	}
+
+	/**
+	 * return the path to partial to render the element
+	 *
+	 * @return string
+	 */
+	public function getPartial() {
+		return $this->partial;
 	}
 }

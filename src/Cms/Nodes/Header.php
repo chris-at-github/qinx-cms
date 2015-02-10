@@ -3,6 +3,33 @@
 class Header extends \Cms\Models\Node {
 
 	/**
+	 * value of header
+	 *
+	 * @var string $header
+	 */
+	protected $header;
+
+	/**
+	 * Getter for header
+	 *
+	 * @return string $header
+	 */
+	public function getHeaderAttribute() {
+		return $this->header;
+	}
+
+	/**
+	 * Setter for header
+	 *
+	 * @param string $header
+	 * @return self
+	 */
+	public function setHeaderAttribute($header) {
+		$this->header = $header;
+		return $this;
+	}
+
+	/**
 	* Initializes the element collection.
 	*
 	* @param \Illuminate\Support\Collection $elements
@@ -11,11 +38,10 @@ class Header extends \Cms\Models\Node {
 	public function initializeElements($elements) {
 		$elements = parent::initializeElements($elements);
 
-		$header = new \Cms\Elements\Text();
-		$header
+		$elements->put('header', with(new \Cms\Elements\Text)
 			->setName('header')
-			->setLabel('Überschrift');
-		$elements->put('header', $header);
+			->setLabel('Überschrift')
+		);
 
 		return $elements;
 	}
