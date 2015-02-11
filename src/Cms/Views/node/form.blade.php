@@ -2,12 +2,7 @@
 
 @if(isset($node) === true)
 
-	{!! Form::model($node, ['route' => 'node.save']) !!}
-		<div>
-			{!! Form::hidden('parent') !!}
-			{!! Form::hidden('nodeType') !!}
-		</div>
-
+	{!! Form::model($node, ['route' => ['node.save', $node->id]]) !!}
 		@include('cms::partials.node.form', ['node' => $node])
 	{!! Form::close() !!}
 

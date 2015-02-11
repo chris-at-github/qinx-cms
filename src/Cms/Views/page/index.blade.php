@@ -5,7 +5,7 @@
 		@foreach($nodes as $node)
 			<div class="node">
 				<header>{{$node->name}}</header>
-				<div><a href="{{route('node.edit', ['id' => $node->id])}}">Bearbeiten</a></div>
+				<div><a href="{{route('node.form', ['node' => $node->id])}}">Bearbeiten</a></div>
 			</div>
 		@endforeach
 

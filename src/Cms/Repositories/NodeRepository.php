@@ -6,7 +6,7 @@ class NodeRepository extends CmsRepository {
 	 * Constructor to set base model
 	 */
 	public function __construct() {
-		parent::__construct(new \Cms\Models\NodeType);
+		parent::__construct(new \Cms\Models\Node);
 	}
 
 	/**

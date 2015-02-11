@@ -30,12 +30,12 @@ class NodeController extends CmsController {
 			$node->fill(\Input::all());
 			$node->save();
 		}
+
+		dd($id);
 	}
 
-	public function edit($id) {
-		$node	= with(new \Cms\Repositories\NodeRepository())->findById($id);
-
-		return \View::make('cms::node.create')
+	public function form($node) {
+		return \View::make('cms::node.form')
 			->with('node', $node);
 	}
 }
