@@ -35,7 +35,26 @@ class NodeController extends CmsController {
 	}
 
 	public function form($node) {
+		dd($node->type()->first()->namespace);
+
 		return \View::make('cms::node.form')
 			->with('node', $node);
+	}
+
+	public function store($id = null) {
+		$map 				= new \App\Models\World\Map();
+		$arguments	= \Input::all();
+
+		if($id !== null) {
+			$map = \App\Models\World\Map::find($id);
+		}
+
+		if($map->store($arguments) === false) {
+			return \Redirect::back()
+				->withInput()
+				->withErrors($map->errors());
+		}
+
+		return \Redirect::route('world.index', array('map' => $map->id));
 	}
 }

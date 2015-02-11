@@ -33,6 +33,15 @@ class Node extends Cms {
 	}
 
 	/**
+	 * getter for relation to node_types
+	 *
+	 * @return \Cms\Models\NodeType
+	 */
+	public function type() {
+		return $this->belongsTo('\Cms\Models\NodeType', 'node_type');
+	}
+
+	/**
 	* Gets the element collection.
 	*
 	* @return \Illuminate\Support\Collection $elements
