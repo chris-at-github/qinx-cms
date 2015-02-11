@@ -2,6 +2,9 @@
 
 class PageController extends CmsController {
 	public function index() {
-		return \View::make('cms::page/index');
+		$nodes = new \Cms\Repositories\NodeRepository();
+
+		return \View::make('cms::page/index')
+			->with('nodes', $nodes->findall());
 	}
 }

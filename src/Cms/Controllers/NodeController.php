@@ -31,4 +31,11 @@ class NodeController extends CmsController {
 			$node->save();
 		}
 	}
+
+	public function edit($id) {
+		$node	= with(new \Cms\Repositories\NodeRepository())->findById($id);
+
+		return \View::make('cms::node.create')
+			->with('node', $node);
+	}
 }
