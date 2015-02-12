@@ -36,7 +36,8 @@ class NodeController extends CmsController {
 
 	public function form($node) {
 		return \View::make('cms::node.form')
-			->with('node', $node);
+			->with('node', $node)
+			->with('types', \App::make('\Cms\Repositories\NodeTypeRepository')->findall());
 	}
 
 	public function store($node) {
