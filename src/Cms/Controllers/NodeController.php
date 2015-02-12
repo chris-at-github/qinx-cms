@@ -47,19 +47,6 @@ class NodeController extends CmsController {
 				->withErrors($map->errors());
 		}
 
-		// $map 				= new \App\Models\World\Map();
-		// $arguments	= \Input::all();
-
-		// if($id !== null) {
-		// 	$map = \App\Models\World\Map::find($id);
-		// }
-
-		// if($map->store($arguments) === false) {
-		// 	return \Redirect::back()
-		// 		->withInput()
-		// 		->withErrors($map->errors());
-		// }
-
-		// return \Redirect::route('world.index', array('map' => $map->id));
+		return \Redirect::to('/');
 	}
 }

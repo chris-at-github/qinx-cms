@@ -104,8 +104,23 @@ class Node extends Cms {
 	 * @return bool
 	 */
 	public function save(array $options = array()) {
-		dd($this);
+		$this->saveAttributes();
 
-		parent::save($options);
+		return parent::save($options);
+	}
+
+	/**
+	 * save all element to the attributes attribute
+	 *
+	 * @return void
+	 */
+	public function saveAttributes() {
+		$attributes = \Illuminate\Support\Collection::make();
+
+		foreach($this->getElements() as $element) {
+			$attributes->put($element->getName(), $this->getAttributeValue($element->getName()));
+		}
+
+		$this->attributes['attributes'] = $attributes->toJson();
 	}
 }
