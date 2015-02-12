@@ -33,11 +33,10 @@ class CmsRepository {
 	 * find one model
 	 *
 	 * @param array $options
-	 * @param array $columns
 	 * @return \Illuminate\Database\Eloquent\Model
 	 */
-	public function find($options = array(), $columns = array('*')) {
-		return $this->model->find($options['id'], $columns);
+	public function find($options = array()) {
+		return $this->model->find($options['id'], array('*'));
 	}
 
 	/**

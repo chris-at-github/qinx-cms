@@ -20,41 +20,45 @@ class NodeController extends CmsController {
 	}
 
 	public function save($id = null) {
-		if($id === null) {
-			$nodeTypes 	= new \Cms\Repositories\NodeTypeRepository();
-			$nodeType 	= $nodeTypes->find(array('id' => \Input::get('nodeType')));
+		// if($id === null) {
+		// 	$nodeTypes 	= new \Cms\Repositories\NodeTypeRepository();
+		// 	$nodeType 	= $nodeTypes->find(array('id' => \Input::get('nodeType')));
 
-			$namespace	= $nodeType->namespace;
-			$node				=	new $namespace();
+		// 	$namespace	= $nodeType->namespace;
+		// 	$node				=	new $namespace();
 
-			$node->fill(\Input::all());
-			$node->save();
-		}
+		// 	$node->fill(\Input::all());
+		// 	$node->save();
+		// }
 
-		dd($id);
+		// dd($id);
 	}
 
 	public function form($node) {
-		dd($node->type()->first()->namespace);
-
 		return \View::make('cms::node.form')
 			->with('node', $node);
 	}
 
-	public function store($id = null) {
-		$map 				= new \App\Models\World\Map();
-		$arguments	= \Input::all();
-
-		if($id !== null) {
-			$map = \App\Models\World\Map::find($id);
-		}
-
-		if($map->store($arguments) === false) {
+	public function store($node) {
+		if($node->store(\Input::all()) === false) {
 			return \Redirect::back()
 				->withInput()
 				->withErrors($map->errors());
 		}
 
-		return \Redirect::route('world.index', array('map' => $map->id));
+		// $map 				= new \App\Models\World\Map();
+		// $arguments	= \Input::all();
+
+		// if($id !== null) {
+		// 	$map = \App\Models\World\Map::find($id);
+		// }
+
+		// if($map->store($arguments) === false) {
+		// 	return \Redirect::back()
+		// 		->withInput()
+		// 		->withErrors($map->errors());
+		// }
+
+		// return \Redirect::route('world.index', array('map' => $map->id));
 	}
 }

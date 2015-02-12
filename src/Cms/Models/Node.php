@@ -38,7 +38,7 @@ class Node extends Cms {
 	 * @return \Cms\Models\NodeType
 	 */
 	public function type() {
-		return $this->belongsTo('\Cms\Models\NodeType', 'node_type');
+		return $this->belongsTo('\Cms\Models\NodeType', 'node_type')->first();
 	}
 
 	/**
@@ -74,25 +74,27 @@ class Node extends Cms {
 	/**
 	 * Setter for node_type so i can use the camelCase style
 	 *
-	 * @param string $nodeType
+	 * @param string $type
 	 * @return self
 	 */
-	public function setNodeTypeAttribute($nodeType) {
-		$this->attributes['node_type'] = $nodeType;
+	public function setTypeAttribute($type) {
+		$type = 1;
+
+		$this->attributes['node_type'] = $type;
 	}
 
 	/**
 	 * Getter for node_type so i can use the camelCase style
 	 *
-	 * @param string $nodeType
+	 * @param string $type
 	 * @return self
 	 */
-	public function getNodeTypeAttribute($nodeType) {
-		if($nodeType === null && $this->attributes['node_type'] !== null) {
-			$nodeType = $this->attributes['node_type'];
+	public function getTypeAttribute($type) {
+		if($type === null && $this->attributes['node_type'] !== null) {
+			$type = $this->attributes['node_type'];
 		}
 
-		return $nodeType;
+		return $type;
 	}
 
 	/**
@@ -102,6 +104,8 @@ class Node extends Cms {
 	 * @return bool
 	 */
 	public function save(array $options = array()) {
+		dd($this);
+
 		parent::save($options);
 	}
 }

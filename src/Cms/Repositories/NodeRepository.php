@@ -10,6 +10,39 @@ class NodeRepository extends CmsRepository {
 	}
 
 	/**
+	 * load one node
+	 *
+	 * @param array $options
+	 * @param string $type
+	 * @return \Cms\Models\Node
+	 */
+	public function find($options = array(), $type = null) {
+		$node  = null;
+		$query = \DB::table('nodes AS node')
+			->select('node.*');
+
+		if(isset($options['id']) === true) {
+			$query->where('node.id', '=', $options['id']);
+		}
+
+		if($type === null) {
+			$query
+				->addSelect('type.namespace')
+				->leftJoin('node_types AS type', 'node.node_type', '=', 'type.id');
+		}
+
+		if(($raw = $query->first()) !== null) {
+			if($type === null && $raw->namespace !== null) {
+				$type = $raw->namespace;
+			}
+
+			$node = \App::make($type)->newFromBuilder((array) $raw);
+		}
+
+		return $node;
+	}
+
+	/**
 	 * load a node by id
 	 *
 	 * @param int $id
