@@ -78,8 +78,6 @@ class Node extends Cms {
 	 * @return self
 	 */
 	public function setTypeAttribute($type) {
-		$type = 1;
-
 		$this->attributes['node_type'] = $type;
 	}
 
@@ -104,7 +102,7 @@ class Node extends Cms {
 	 * @return bool
 	 */
 	public function save(array $options = array()) {
-		$this->saveAttributes();
+		$this->saveProperties();
 
 		return parent::save($options);
 	}
@@ -114,13 +112,30 @@ class Node extends Cms {
 	 *
 	 * @return void
 	 */
-	public function saveAttributes() {
-		$attributes = \Illuminate\Support\Collection::make();
+	public function saveProperties() {
+		$properties = \Illuminate\Support\Collection::make();
 
 		foreach($this->getElements() as $element) {
-			$attributes->put($element->getName(), $this->getAttributeValue($element->getName()));
+			$properties->put($element->getName(), $this->getAttributeValue($element->getName()));
 		}
 
-		$this->attributes['attributes'] = $attributes->toJson();
+		$this->attributes['properties'] = $properties->toJson();
+	}
+
+	/**
+	 * Set the array of model attributes. No checking is done.
+	 *
+	 * @param  array  $attributes
+	 * @param  bool   $sync
+	 * @return void
+	 */
+	public function setRawAttributes(array $attributes, $sync = false) {
+		if(isset($attributes['properties']) === true) {
+			$properties	 = json_decode($attributes['properties'], true);
+			$attributes += $properties;
+		}
+
+		parent::setRawAttributes($attributes, $sync);
+		$this->fill($properties, true);
 	}
 }

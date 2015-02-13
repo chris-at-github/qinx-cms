@@ -43,24 +43,14 @@ class NodeRepository extends CmsRepository {
 	}
 
 	/**
-	 * load a node by id
+	 * load all nodes that match on the options
 	 *
-	 * @param int $id
+	 * @param array $options
+	 * @return \Illuminate\Support\Collection
 	 */
-	public function findById($id) {
-		$raw = \DB::table('nodes AS n')
-		->select(array('n.*', 'nt.namespace'))
-		->join('node_types AS nt', 'n.node_type', '=', 'nt.id')
-		->where('n.id', '=', $id)
-		->first();
+	public function findall($options = array(), $xyz = null) {
+		$nodes = \Illuminate\Support\Collection::make();
 
-		if($raw !== null) {
-			$namespace 	= $raw->namespace;
-			$node 			= new $namespace();
-
-			return $node->fill((array) $raw);
-		}
-
-		return null;
+		return $nodes;
 	}
 }
