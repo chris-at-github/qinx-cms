@@ -3,7 +3,7 @@
 class NodeController extends CmsController {
 	public function create($nodeType = null) {
 		$node				= null;
-		$nodeTypes 	= new \App::make('\Cms\Repositories\NodeTypeRepository');
+		$nodeTypes 	= \App::make('\Cms\Repositories\NodeTypeRepository');
 
 		if($nodeType !== null) {
 			$namespace	= $nodeType->namespace;

@@ -48,8 +48,37 @@ class NodeRepository extends CmsRepository {
 	 * @param array $options
 	 * @return \Illuminate\Support\Collection
 	 */
-	public function findall($options = array(), $xyz = null) {
+	public function findall($options = array()) {
 		$nodes = \Illuminate\Support\Collection::make();
+		$query = \DB::table('nodes AS node')
+			->select(['node.*', 'type.namespace'])
+			->leftJoin('node_types AS type', 'node.node_type', '=', 'type.id');
+
+		if(isset($options['id']) === true) {
+			$query->where('node.id', '=', $options['id']);
+		}
+
+		if(isset($options['namespace']) === true) {
+			if(isset($options['namespace']['not']) === true) {
+				$query->whereNotIn('type.namespace', $options['namespace']['not']);
+				unset($options['namespace']['not']);
+			}
+
+			if(empty($options['namespace']) === false) {
+				$query->whereIn('type.namespace', $options['namespace']);
+			}
+		}
+
+		if(($raw = $query->get()) !== null) {
+			foreach($raw as $value) {
+				$type = $value->namespace;
+				$node = \App::make($type)->newFromBuilder((array) $value);
+
+				if($node instanceof \Cms\Models\Node) {
+					$nodes->put($value->id, $node);
+				}
+			}
+		}
 
 		return $nodes;
 	}

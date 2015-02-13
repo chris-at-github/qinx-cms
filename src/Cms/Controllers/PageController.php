@@ -5,6 +5,10 @@ class PageController extends CmsController {
 		$nodes = new \Cms\Repositories\NodeRepository();
 
 		return \View::make('cms::page/index')
-			->with('nodes', $nodes->findall());
+			->with('nodes', $nodes->findall(array(
+				'namespace' => array(
+					'not' => ['Cms\Nodes\Page']
+				)
+			)));
 	}
 }

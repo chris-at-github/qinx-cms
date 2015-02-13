@@ -130,9 +130,14 @@ class Node extends Cms {
 	 * @return void
 	 */
 	public function setRawAttributes(array $attributes, $sync = false) {
-		if(isset($attributes['properties']) === true) {
+		$properties = array();
+
+		if(isset($attributes['properties']) === true && empty($attributes['properties']) === false) {
 			$properties	 = json_decode($attributes['properties'], true);
-			$attributes += $properties;
+
+			if($properties !== null) {
+				$attributes += $properties;
+			}
 		}
 
 		parent::setRawAttributes($attributes, $sync);

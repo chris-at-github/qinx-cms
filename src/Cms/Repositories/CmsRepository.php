@@ -43,10 +43,9 @@ class CmsRepository {
 	 * Get all of the models from the database
 	 *
 	 * @param array $options
-	 * @param array $columns
 	 * @return \Illuminate\Database\Eloquent\Collection
 	 */
-	public function findall($options = array(), $columns = array('*')) {
-		return $this->model->all($columns);
+	public function findall($options = array()) {
+		return $this->model->all();
 	}
 }
