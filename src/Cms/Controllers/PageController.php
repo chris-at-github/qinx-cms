@@ -1,7 +1,7 @@
 <?php namespace Cms\Controllers;
 
 class PageController extends CmsController {
-	public function index() {
+	public function index($page) {
 		$nodes = new \Cms\Repositories\NodeRepository();
 		$pages = \App::make('\Cms\Repositories\PageRepository');
 
@@ -11,6 +11,8 @@ class PageController extends CmsController {
 					'not' => ['Cms\Nodes\Page']
 				)
 			)))
-			->with('pages', $pages->findall());
+			->with('pages', $pages->findall(array(
+				'parent' => $page->id
+			)));
 	}
 }

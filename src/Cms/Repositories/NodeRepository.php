@@ -58,6 +58,10 @@ class NodeRepository extends CmsRepository {
 			$query->where('node.id', '=', $options['id']);
 		}
 
+		if(isset($options['parent']) === true) {
+			$query->where('node.parent', '=', $options['parent']);
+		}
+
 		if(isset($options['namespace']) === true) {
 			if(isset($options['namespace']['not']) === true) {
 				$query->whereNotIn('type.namespace', $options['namespace']['not']);
